@@ -3,30 +3,84 @@
 
 <head>
 	<style>
-	
-	p{
-		margin: 20px;
-	}
-	
 	body{
 		zoom: 200%;
 		background-image: url('background.png');
 		background-size: cover;
 		background-repeat: no-repeat;
 		<!-- background-color: lightseagreen; -->
-		
 		margin: 20px;
 		<!-- background-image: url('smiley.png'); -->
-		
-		
-		
-		
 	}
 	body, h1, h2, h3, h4, h5, h6  {
 		font-family: "Trebuchet MS", Tahoma, sans-serif;
 	}
-	select, input, button {
+	label, select, input, button {
 		font-family: "Trebuchet MS", Tahoma, sans-serif;
+		margin: 5px;
+	}
+	select,input,button{
+		background-color: seagreen;
+		color: white;
+	}
+	input[type="checkbox"] {
+	  appearance: none;
+	  -webkit-appearance: none;
+	  display: flex;
+	  width: 7%;
+	  margin: auto;
+	  text-align: center;
+	  align-content: center;
+	  justify-content: center;
+	  font-size: 2rem;
+	  padding: 0.1rem;
+	  border: 0.2rem solid lightgreen;
+	  border-radius: 0.5rem;
+	}
+	input[type="checkbox"]::before {
+	  content: "";
+	  width: 0.8rem;
+	  height: 0.8rem;
+	  clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
+	  transform: scale(0);
+	  background-color: white;
+	  float: center;
+	}
+	input[type="checkbox"]:checked::before {
+		transform: scale(1);
+	}
+	input[type="checkbox"]:hover {
+		color: black;
+	}
+	label, select, button{
+		text-align: center;
+		vertical-align: middle;
+	}
+	h2{
+		width: 50%;
+		margin: 0 auto;
+		text-align: center;
+	}
+	.line{
+
+	}
+	.column{
+		float:left;
+		padding: 20px;
+		background-color: lightseagreen;
+		border: 2px solid black;
+		border-radius: 25px;
+		text-align: center;
+	}
+	.output {
+		float:right;
+		padding: 20px;
+		background-color: darkviolet;
+		border: 2px solid black;
+		border-radius: 25px;
+		text-align: center;
+		width: 300px;
+		
 	}
 	</style>
   <meta charset="utf-8">
@@ -37,43 +91,54 @@
 </head>
 <body>
 	<h2>SLA CALCULATOR</h2>
-	<label for="department">Department:</label> 
-	<select id="department">
-		<option value="walmart">Walmart</option>
-		<option value="sams">Sam's Club</option>
-		<option value="DMS">DMS</option>
-		<option value="vision">Vision Center</option>
-		<option value="pharma">Pharmacy</option>
-	</select> 
-	<label for="weekend">Exclude Weekends?</label> 
-	<input id="weekend" type="checkbox">(Unnecessary if you chose DMS)</input>
-	<!-- <p style="background-image: url('smiley.png');"> -->
-	
-	<br><br><br>
-	
-	<label for="priority">Priority (in hours):</label>
-	<input id="priority">
-	
-	</br>
-	</br>
-	</br>
-	
-	<label for="assigned">Assigned Date/Time:</label>
-	<input id="assigned">
-	
-	<br><br><br>
-	
-	<button type="button" onclick="input()">CALCULATE SLA</button>
-	
-	<a href="https://www.iww.org" target="_blank" style="float:right" <p> </p></a>
-	
 	<br>
-	<br>
-	<br><br>
-	<p id="demo"></p>
+	<div class="column">
+		<label for="department">Department:</label> 
+		<select id="department">
+			<option value="walmart">Walmart</option>
+			<option value="sams">Sam's Club</option>
+			<option value="DMS">DMS</option>
+			<option value="vision">Vision Center</option>
+			<option value="pharma">Pharmacy</option>
+		</select> 
+		<br>
+		<br>
+		<br>
+		
+		<label for="weekend">Exclude Weekends?</label> 
+		<input id="weekend" type="checkbox">(Unnecessary if you chose DMS)</input>
+		<!-- <p style="background-image: url('smiley.png');"> -->
+		
+		<br><br><br>
+		
+		<label for="priority">Priority (in hours):</label>
+		<input id="priority">
+		
+		<br>
+		<br>
+		<br>
+		
+		<label for="assigned">Assigned Date/Time:</label>
+		<input id="assigned">
 	
+		<br><br><br>
+	
+		<button id="inputbut" type="button" onclick="input()">CALCULATE SLA</button>
+	</div>	
+	<div class="output">
+	<a href="https://www.iww.org" target="_blank" style="text-decoration:none;color:black;"<p> </p></a>
+	<h3>OUTPUT</h3>
+	<br>
+	<p id="demo" style="color:white;"></p>
+	</div>
 
   <script>
+	document.getElementById("assigned").addEventListener("keyup", function(event) {
+		event.preventDefault();
+		if (event.keyCode === 13) {
+			document.getElementById("inputbut").click();
+		}
+	});
 	function skipweekend(dateThing, startTime){
 		while ([0, 6].includes(dateThing.getDay())) {
 			dateThing.setDate(dateThing.getDate() + 1);
@@ -82,13 +147,8 @@
 		return dateThing;
 	}
 	function input() {
-		
-		
 
 		let assigned = new Date(document.getElementById("assigned").value);
-		//DMS(assigned); -->
-		//assigned.setTime(assigned.getTime() + hoursToAdd); -->
-		//document.getElementById("demo").innerHTML = "New SLA due date: " + assigned; -->
 		if(document.getElementById("department").value == "DMS"){
 			DMS(assigned, document.getElementById("priority").value);
 		}
@@ -251,12 +311,7 @@
 		}
 		document.getElementById("demo").innerHTML = "New SLA due date: " + result.toLocaleString();
 	}
-	
-
-	
   </script>
-  
-
 </body>
 </html>
 

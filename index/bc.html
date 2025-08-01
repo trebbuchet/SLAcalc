@@ -4,11 +4,11 @@
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Varela+Round">
 		<style>
 			body{
-				zoom: 200%
 				background-color: seabluegreen;
 				background-image: url('background.png');
 				background-size: cover;
 				background-repeat: no-repeat;
+				zoom: 200%;
 			}
 			textarea{
 				font-size: 15px;
@@ -20,6 +20,25 @@
 				font-family: "Varela Round", "Trebuchet MS", sans-serif;
 				
 			}
+			.input{
+				float: left;
+				padding: 15px;
+				border: 2px solid black;
+				border-radius: 25px;
+				text-align: center;
+				box-shadow: 5px 5px 5px darkslategray;
+			}
+			.output{
+				float: left;
+				width: 100px; /* Set equal width and height for a perfect circle */
+				height: 100px;
+				margin: 50px;
+				background-color: NavajoWhite;
+				border-radius: 50%; 
+				display: flex; 
+				justify-content: center; 
+				align-items: center;
+			}
 		</style>
 		<meta charset="utf-8">
   
@@ -29,8 +48,12 @@
 	</head>
 	
 	<body>
-		<h2>Barrier Code Timestamps</h2>
-		<textarea id="bc" rows="10" cols="40"></textarea>
-		
+		<div class="input">
+			<h2>Barrier Code Timestamps</h2>
+			<textarea id="bc" rows="10" cols="40"></textarea>
+		</div>
+		<div class="output">
+			<h2>0.00</h2>
+		</div>
 	</body>
 </html>

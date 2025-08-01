@@ -11,8 +11,6 @@
 		<!-- background-color: lightseagreen; -->
 		margin: 20px;
 		<!-- background-image: url('smiley.png'); -->
-
-		
 	}
 	body, h1, h2, h3, h4, h5, h6  {
 		font-family: "Trebuchet MS", Tahoma, sans-serif;
@@ -73,15 +71,21 @@
 		border: 2px solid black;
 		border-radius: 25px;
 		text-align: center;
+		box-shadow: 5px 5px 5px darkslategray;
 	}
 	.output {
 		float:right;
 		padding: 20px;
-		background-color: darkviolet;
+		background-color: green;
 		border: 2px solid black;
 		border-radius: 25px;
 		text-align: center;
-		width: 300px;
+		width: 400px;
+		box-shadow: 5px 5px 5px darkslategray;
+	}
+	::placeholder{
+		color:lightgray;
+		
 	}
 	</style>
   <meta charset="utf-8">
@@ -113,7 +117,7 @@
 		<br><br><br>
 		
 		<label for="priority">Priority (in hours):</label>
-		<input id="priority">
+		<input id="priority" value="48">
 		
 		<br>
 		<br>
@@ -128,13 +132,15 @@
 	</div>	
 	<br><br><br><br><br><br><br>
 	<div class="output">
-	<a href="https://www.iww.org" target="_blank" style="text-decoration:none;color:black;"<p> </p></a>
+	<a href="https://www.iww.org/" target="_blank"><img src="invis.png" style="width:5px;height:5px;float:right;"></a>
 	<!-- <h3>OUTPUT</h3> -->
 	<p id="demo" style="color:white;"></p>
 	</div>
 
   <script>
-	document.getElementById("assigned").addEventListener("keyup", function(event) {
+	n = new Date()
+	document.getElementById("assigned").value = n.toLocaleString();
+	document.body.addEventListener("keyup", function(event) {
 		event.preventDefault();
 		if (event.keyCode === 13) {
 			document.getElementById("inputbut").click();

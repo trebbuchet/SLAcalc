@@ -2,6 +2,7 @@
 <html lang="en">
 <!--WRITTEN BY JOSEPH HURLEY-->
 <head>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Varela+Round">
 	<style>
 	body{
 		zoom: 200%;
@@ -13,15 +14,16 @@
 		<!-- background-image: url('smiley.png'); -->
 	}
 	body, h1, h2, h3, h4, h5, h6  {
-		font-family: "Trebuchet MS", Tahoma, sans-serif;
+		font-family: "Varela Round", "Trebuchet MS", sans-serif;
 	}
 	label, select, input, button {
-		font-family: "Trebuchet MS", Tahoma, sans-serif;
+		font-family: "Varela Round", "Trebuchet MS", sans-serif;
 		margin: 5px;
 	}
 	select,input,button{
 		background-color: seagreen;
 		color: white;
+		border-radius: 7px;
 	}
 	input[type="checkbox"] {
 	  appearance: none;
@@ -76,7 +78,7 @@
 	.output {
 		float:right;
 		padding: 20px;
-		background-color: green;
+		background-color: seagreen;
 		border: 2px solid black;
 		border-radius: 25px;
 		text-align: center;
@@ -87,6 +89,19 @@
 		color:lightgray;
 		
 	}
+	button{
+		border-radius: 7px;
+	}
+	a[id="bc"]{
+		font-size: 10px;
+		float:right;
+		color: white;
+		background-color: green;
+		padding: 10px;
+		text-align: center;
+		text-decoration: none;
+		border-radius: 7px;
+	}
 	</style>
   <meta charset="utf-8">
   
@@ -96,6 +111,7 @@
 </head>
 <body>
 	<h2>SLA CALCULATOR</h2>
+	<a id="bc" href="bc.html" target="_blank">Barrier Codes</a>
 	<br>
 	<div class="column">
 		<label for="department">Department:</label> 

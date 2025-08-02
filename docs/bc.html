@@ -4,7 +4,6 @@
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Varela+Round">
 		<style>
 			body{
-				background-color: seabluegreen;
 				background-image: url('background.png');
 				background-size: cover;
 				background-repeat: no-repeat;
@@ -17,7 +16,7 @@
 				background-color: lightgreen;
 				line-height: 1.5;
 			}
-			h2{
+			h2, label{
 				font-family: "Varela Round", "Trebuchet MS", sans-serif;
 				text-align: center;
 			}
@@ -46,10 +45,19 @@
 				box-shadow: 5px 5px 5px darkslategray;	
 			}
 			button{
-				padding: 15px;
+				float: left;
+				padding: 10px;
 				margin: 50px;
 				background-color: lightseagreen;
 				border-radius: 15px;
+			}
+			input[type="checkbox"]{
+				accent-color: lightseagreen;
+			}
+			select{
+				background-color: seagreen;
+				color: white;
+				border-radius: 7px;
 			}
 		</style>
 		<meta charset="utf-8">
@@ -62,39 +70,252 @@
 	<body>
 		<div class="input">
 			<h2>Barrier Code Timestamps</h2>
+			<label for="department">Site Type:</label> 
+			<select id="department">
+				<option value="walmart">Walmart</option>
+				<option value="sams">Sam's Club</option>
+				<option value="DMS">DMS</option>
+				<option value="vision">Vision Center</option>
+				<option value="pharma">Pharmacy</option>
+			</select>
+			<label for="weekend">Exclude Weekends?</label> 
+			<input id="weekend" type="checkbox"></input>
+			
 			<h6>(Separate start and stop times with commas, separate lines with semi-colons)</h6>
-			<textarea id="bc" rows="10" cols="35"></textarea>
+			<textarea id="bc" rows="10" cols="35" value=""></textarea>
 		</div>
 		<div class="output">
 			<h2 id="total">0.00</h2>
 		</div>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
 		<button id="inputbut" type="button" onclick="calculate()">CALCULATE</button>
 		<script>
-		
-		//document.body.addEventListener("keyup", function(event) {
-		//	event.preventDefault();
-		//	if (event.keyCode === 13) {
-		//		input();
-		//	}
-		//});
+		function skipweekend(dateThing, startTime){
+			while ([0, 6].includes(dateThing.getDay())) {
+				dateThing.setDate(dateThing.getDate() + 1);
+				dateThing.setHours(startTime, 0, 0, 0);
+			}
+			return dateThing;
+		}
 		function calculate() {
+			let siteType = document.getElementById("department").value;
 			let totalHours = 0;
-			let previousItem = null;
+			
 			let text = document.getElementById("bc").value.split(";");
-			for (const item of text){
+			if (text.length == 0 || text[0] == ""){
+				document.getElementById("total").innerHTML = " Invalid\n Input!";
+				return;
+			}
+				switch (siteType){
+					case "walmart":
+						totalHours = walmart(text);
+						break;
+					case "sams":
+						totalHours = sams(text);
+						break;
+					case "DMS":
+						totalHours = DMS(text);
+						break;
+					case "vision":
+						totalHours = vision(text);
+						break;
+					case "pharma":
+						totalHours = pharma(text);
+						break;
+				}
+				if (isNaN(totalHours) || totalHours<0){
+					document.getElementById("total").innerHTML = " Invalid\n Input!";
+				}
+				else{
+					document.getElementById("total").innerHTML = parseFloat(totalHours.toFixed(2));
+				}
+			}
+		
+		function walmart(inputList){
+			let hours = 0;
+			let totalMinutes = 0;
+			for (const item of inputList){
 				let line = item.split(",");
 				let stamp1 = new Date(line[0]);
 				let stamp2 = new Date(line[1]);
-				let milliseconds = stamp2.valueOf() - stamp1.valueOf();
-				totalHours = totalHours + (milliseconds / (1000 * 60 * 60));
+				stamp1.setHours(stamp1.getHours(), stamp1.getMinutes(), 0, 0);
+				stamp2.setHours(stamp2.getHours(), stamp2.getMinutes(), 0, 0);
+				let minutes = 0;
+				while (stamp1.getTime() < stamp2.getTime()){
+					if (document.getElementById("weekend").checked == true && (stamp1.getDay() == 0 || stamp1.getDay() == 6)){
+						stamp1 = skipweekend(stamp1, 6);
+					}
+					// Skip excluded hours
+					const hour = stamp1.getHours();
+					if (hour < 6) {
+						stamp1.setHours(6, 0, 0, 0); // Start of business day
+					} else if (hour >= 23) {
+						stamp1.setDate(stamp1.getDate() + 1); // Next day
+						stamp1.setHours(6, 0, 0, 0);
+						if (document.getElementById("weekend").checked == true){
+							continue;
+						}
+					}
+					if (hour >= 6 && hour < 23){
+						stamp1.setMinutes(stamp1.getMinutes() + 1);
+						minutes++;
+					}
+				}
+				totalMinutes = totalMinutes + minutes;
 			}
-			if (isNaN(totalHours) || totalHours<0){
-				document.getElementById("total").innerHTML = " Invalid\n Input!";
-			}
-			else{
-				document.getElementById("total").innerHTML = parseFloat(totalHours.toFixed(2));
-			}
+			hours = (totalMinutes / 60);
+			return hours;
 		}
+		function sams(inputList){
+			let hours = 0;
+			let totalMinutes = 0;
+			for (const item of inputList){
+				let line = item.split(",");
+				let stamp1 = new Date(line[0]);
+				let stamp2 = new Date(line[1]);
+				stamp1.setHours(stamp1.getHours(), stamp1.getMinutes(), 0, 0);
+				stamp2.setHours(stamp2.getHours(), stamp2.getMinutes(), 0, 0);
+				let minutes = 0;
+				while (stamp1.getTime() < stamp2.getTime()){
+					if (document.getElementById("weekend").checked == true && (stamp1.getDay() == 0 || stamp1.getDay() == 6)){
+						stamp1 = skipweekend(stamp1, 8);
+					}
+					// Skip excluded hours
+					const hour = stamp1.getHours();
+					if (hour < 8) {
+						stamp1.setHours(8, 0, 0, 0); // Start of business day
+					} else if (hour >= 20) {
+						stamp1.setDate(stamp1.getDate() + 1); // Next day
+						stamp1.setHours(8, 0, 0, 0);
+						if (document.getElementById("weekend").checked == true){
+							continue;
+						}
+					}
+					if (hour >= 8 && hour < 20){
+						stamp1.setMinutes(stamp1.getMinutes() + 1);
+						minutes++;
+					}
+				}
+				totalMinutes = totalMinutes + minutes;
+			}
+			hours = (totalMinutes / 60);
+			return hours;
+		}
+		function DMS(inputList){
+			let hours = 0;
+			let totalMinutes = 0;
+			for (const item of inputList){
+				let line = item.split(",");
+				let stamp1 = new Date(line[0]);
+				let stamp2 = new Date(line[1]);
+				stamp1.setHours(stamp1.getHours(), stamp1.getMinutes(), 0, 0);
+				stamp2.setHours(stamp2.getHours(), stamp2.getMinutes(), 0, 0);
+				let minutes = 0;
+				while (stamp1.getTime() < stamp2.getTime()){
+					stamp1 = skipweekend(stamp1, 8);
+					// Skip excluded hours
+					const hour = stamp1.getHours();
+					if (hour < 8) {
+						stamp1.setHours(8, 0, 0, 0); // Start of business day
+					} else if (hour >= 17) {
+						stamp1.setDate(stamp1.getDate() + 1); // Next day
+						stamp1.setHours(8, 0, 0, 0);
+						if (document.getElementById("weekend").checked == true){
+							continue;
+						}
+					}
+					if (hour >= 8 && hour < 17){
+						stamp1.setMinutes(stamp1.getMinutes() + 1);
+						minutes++;
+					}
+				}
+				totalMinutes = totalMinutes + minutes;
+			}
+			hours = (totalMinutes / 60);
+			return hours;
+		}
+		function vision(inputList){
+			let hours = 0;
+			let totalMinutes = 0;
+			for (const item of inputList){
+				let line = item.split(",");
+				let stamp1 = new Date(line[0]);
+				let stamp2 = new Date(line[1]);
+				stamp1.setHours(stamp1.getHours(), stamp1.getMinutes(), 0, 0);
+				stamp2.setHours(stamp2.getHours(), stamp2.getMinutes(), 0, 0);
+				let minutes = 0;
+				while (stamp1.getTime() < stamp2.getTime()){
+					if (document.getElementById("weekend").checked == true && (stamp1.getDay() == 0 || stamp1.getDay() == 6)){
+						stamp1 = skipweekend(stamp1, 10);
+					}
+					// Skip excluded hours
+					const hour = stamp1.getHours();
+					if (hour < 10) {
+						stamp1.setHours(10, 0, 0, 0); // Start of business day
+					} else if (hour >= 19) {
+						stamp1.setDate(stamp1.getDate() + 1); // Next day
+						stamp1.setHours(10, 0, 0, 0);
+						if (document.getElementById("weekend").checked == true){
+							continue;
+						}
+					}
+					if (hour >= 10 && hour < 19){
+						stamp1.setMinutes(stamp1.getMinutes() + 1);
+						minutes++;
+					}
+				}
+				totalMinutes = totalMinutes + minutes;
+			}
+			hours = (totalMinutes / 60);
+			return hours;
+		}
+		function pharma(inputList){
+			let hours = 0;
+			let totalMinutes = 0;
+			for (const item of inputList){
+				let line = item.split(",");
+				let stamp1 = new Date(line[0]);
+				let stamp2 = new Date(line[1]);
+				stamp1.setHours(stamp1.getHours(), stamp1.getMinutes(), 0, 0);
+				stamp2.setHours(stamp2.getHours(), stamp2.getMinutes(), 0, 0);
+				let minutes = 0;
+				while (stamp1.getTime() < stamp2.getTime()){
+					if (document.getElementById("weekend").checked == true && (stamp1.getDay() == 0 || stamp1.getDay() == 6)){
+						stamp1 = skipweekend(stamp1, 9);
+					}
+					// Skip excluded hours
+					const hour = stamp1.getHours();
+					if (hour < 9) {
+						stamp1.setHours(9, 0, 0, 0); // Start of business day
+					} else if (hour >= 19) {
+						stamp1.setDate(stamp1.getDate() + 1); // Next day
+						stamp1.setHours(9, 0, 0, 0);
+						if (document.getElementById("weekend").checked == true){
+							continue;
+						}
+					}
+					if (hour >= 9 && hour < 19){
+						stamp1.setMinutes(stamp1.getMinutes() + 1);
+						minutes++;
+					}
+				}
+				totalMinutes = totalMinutes + minutes;
+			}
+			hours = (totalMinutes / 60);
+			return hours;
+		}
+		
 		</script>
 	</body>
 </html>

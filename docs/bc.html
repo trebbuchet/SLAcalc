@@ -104,7 +104,7 @@
 		function skipweekend(dateThing, startTime){
 			while ([0, 6].includes(dateThing.getDay())) {
 				dateThing.setDate(dateThing.getDate() + 1);
-				dateThing.setHours(startTime, 1, 0, 0);
+				dateThing.setHours(startTime, 0, 0, 0);
 			}
 			return dateThing;
 		}
@@ -155,6 +155,7 @@
 				while (stamp1.getTime() < stamp2.getTime()){
 					if (document.getElementById("weekend").checked == true && (stamp1.getDay() == 0 || stamp1.getDay() == 6)){
 						stamp1 = skipweekend(stamp1, 6);
+						continue;
 					}
 					// Skip excluded hours
 					const hour = stamp1.getHours();
@@ -190,6 +191,7 @@
 				while (stamp1.getTime() < stamp2.getTime()){
 					if (document.getElementById("weekend").checked == true && (stamp1.getDay() == 0 || stamp1.getDay() == 6)){
 						stamp1 = skipweekend(stamp1, 8);
+						continue;
 					}
 					// Skip excluded hours
 					const hour = stamp1.getHours();
@@ -258,6 +260,7 @@
 				while (stamp1.getTime() < stamp2.getTime()){
 					if (document.getElementById("weekend").checked == true && (stamp1.getDay() == 0 || stamp1.getDay() == 6)){
 						stamp1 = skipweekend(stamp1, 10);
+						continue;
 					}
 					// Skip excluded hours
 					const hour = stamp1.getHours();
@@ -293,6 +296,8 @@
 				while (stamp1.getTime() < stamp2.getTime()){
 					if (document.getElementById("weekend").checked == true && (stamp1.getDay() == 0 || stamp1.getDay() == 6)){
 						stamp1 = skipweekend(stamp1, 9);
+						continue;
+				
 					}
 					// Skip excluded hours
 					const hour = stamp1.getHours();

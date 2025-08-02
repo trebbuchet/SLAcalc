@@ -126,10 +126,10 @@
 		<br>
 		
 		<label for="weekend">Exclude Weekends?</label> 
-		<input id="weekend" type="checkbox">(Unnecessary if you chose DMS)</input>
+		<input id="weekend" type="checkbox"></input>
 		<!-- <p style="background-image: url('smiley.png');"> -->
 		
-		<br><br><br>
+		<br><br>
 		
 		<label for="priority">Priority (in hours):</label>
 		<input id="priority" value="48">
@@ -257,9 +257,8 @@
 
 		while (minutesAdded < minutesToAdd) {
 		// Skip excluded days
-			while ([0, 6].includes(result.getDay())) {
-				result.setDate(result.getDate() + 1);
-				result.setHours(8, 0, 0, 0); // Reset to next weekday at 8 AM
+			if (document.getElementById("weekend").checked == true){
+				result = skipweekend(result, 8);
 			}
 
 		// Skip excluded hours
@@ -269,7 +268,10 @@
 			} else if (hour >= 17) {
 				result.setDate(result.getDate() + 1); // Next day
 				result.setHours(8, 0, 0, 0);
+			if (document.getElementById("weekend").checked == true){
 				continue; // Recheck day after date advance
+			}
+				
 			}
 
 			// Add a minute of business time

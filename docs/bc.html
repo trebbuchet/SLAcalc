@@ -214,7 +214,10 @@
 				stamp2.setHours(stamp2.getHours(), stamp2.getMinutes(), 0, 0);
 				let minutes = 0;
 				while (stamp1.getTime() < stamp2.getTime()){
-					stamp1 = skipweekend(stamp1, 8);
+					if (document.getElementById("weekend").checked == true && (stamp1.getDay() == 0 || stamp1.getDay() == 6)){
+						stamp1 = skipweekend(stamp1, 8);
+						continue;
+					}
 					// Skip excluded hours
 					const hour = stamp1.getHours();
 					if (hour < 8) {

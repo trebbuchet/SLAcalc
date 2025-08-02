@@ -19,7 +19,7 @@
 			}
 			h2{
 				font-family: "Varela Round", "Trebuchet MS", sans-serif;
-				
+				text-align: center;
 			}
 			h6{
 				font-family: "Trebuchet MS", "Varela Round", sans-serif;
@@ -88,7 +88,12 @@
 				let milliseconds = stamp2.valueOf() - stamp1.valueOf();
 				totalHours = totalHours + (milliseconds / (1000 * 60 * 60));
 			}
-			document.getElementById("total").innerHTML = parseFloat(totalHours.toFixed(2));
+			if (isNaN(totalHours) || totalHours<0){
+				document.getElementById("total").innerHTML = " Invalid\n Input!";
+			}
+			else{
+				document.getElementById("total").innerHTML = parseFloat(totalHours.toFixed(2));
+			}
 		}
 		</script>
 	</body>

@@ -173,7 +173,13 @@
 		return dateThing;
 	}
 	function input() {
-
+		var colors = ["yellow", "aquamarine", "orange", "white"];
+		var random_color = colors[Math.floor(Math.random() * colors.length)]
+		var current_color = document.getElementById("demo").style.color;
+		
+		while (random_color == current_color){
+			random_color = colors[Math.floor(Math.random() * colors.length)];
+		}
 		let assigned = new Date(document.getElementById("assigned").value);
 		if(document.getElementById("department").value == "DMS"){
 			DMS(assigned, document.getElementById("priority").value);
@@ -190,6 +196,8 @@
 		if(document.getElementById("department").value == "pharma"){
 			pharma(assigned, document.getElementById("priority").value);
 		}
+		
+		document.getElementById("demo").style.color = random_color;
 	}
 	
 	function Walmart(dtime, hours) {

@@ -186,16 +186,16 @@
 			calculate(assigned, priorityHours, 8, 17);
 		}
 		if(document.getElementById("department").value == "walmart"){
-			Walmart(assigned, document.getElementById("priority").value);
+			calculate(assigned, priorityHours, 6, 23);
 		}
 		if(document.getElementById("department").value == "sams"){
-			Sams(assigned, document.getElementById("priority").value);
+			calculate(assigned, priorityHours, 8, 20);
 		}
 		if(document.getElementById("department").value == "vision"){
-			vision(assigned, document.getElementById("priority").value);
+			calculate(assigned, priorityHours, 10, 19);
 		}
 		if(document.getElementById("department").value == "pharma"){
-			pharma(assigned, document.getElementById("priority").value);
+			calculate(assigned, priorityHours, 9, 19);
 		}
 		
 		document.getElementById("demo").style.color = random_color;
@@ -348,6 +348,7 @@
 		}
 		document.getElementById("demo").innerHTML = "New SLA due date: " + result.toLocaleString();
 	}
+	
 	function calculate(dtime, hours, startTime, endTime){
 		let result = new Date(dtime.getTime());
 		const minutesToAdd = hours * 60;

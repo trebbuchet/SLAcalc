@@ -176,13 +176,14 @@
 		var colors = ["yellow", "aquamarine", "orange", "white"];
 		var random_color = colors[Math.floor(Math.random() * colors.length)]
 		var current_color = document.getElementById("demo").style.color;
+		let priorityHours = document.getElementById("priority").value;
 		
 		while (random_color == current_color){
 			random_color = colors[Math.floor(Math.random() * colors.length)];
 		}
 		let assigned = new Date(document.getElementById("assigned").value);
 		if(document.getElementById("department").value == "DMS"){
-			DMS(assigned, document.getElementById("priority").value);
+			calculate(assigned, priorityHours, 8, 17);
 		}
 		if(document.getElementById("department").value == "walmart"){
 			Walmart(assigned, document.getElementById("priority").value);
@@ -347,6 +348,34 @@
 		}
 		document.getElementById("demo").innerHTML = "New SLA due date: " + result.toLocaleString();
 	}
+	function calculate(dtime, hours, startTime, endTime){
+		let result = new Date(dtime.getTime());
+		const minutesToAdd = hours * 60;
+		let minutesAdded = 0;
+
+
+		while (minutesAdded < minutesToAdd) {
+			if (document.getElementById("weekend").checked == true){
+				result = skipweekend(result, startTime);
+			}
+		// Skip excluded hours
+			const hour = result.getHours();
+				if (hour < startTime) {
+					result.setHours(startTime, 0, 0, 0); // Start of business day
+				} else if (hour >= endTime) {
+					result.setDate(result.getDate() + 1); // Next day
+					result.setHours(startTime, 0, 0, 0);
+					if (document.getElementById("weekend").checked == true){
+						continue;
+					}
+				}
+				// Add a minute of business time
+			result.setMinutes(result.getMinutes() + 1);
+			minutesAdded++;
+		}
+		document.getElementById("demo").innerHTML = "New SLA due date: " + result.toLocaleString();
+	}
+
   </script>
 </body>
 </html>

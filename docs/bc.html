@@ -90,6 +90,7 @@
 		<br><br><br><br><br><br><br><br><br><br><br><br>
 		<button id="inputbut" type="button" onclick="calculate()">CALCULATE</button>
 		<script>
+		const currentYear = new Date().getFullYear();
 		function skipweekend(dateThing, startTime){
 			while ([0, 6].includes(dateThing.getDay())) {
 				dateThing.setDate(dateThing.getDate() + 1);
@@ -140,6 +141,12 @@
 				let stamp2 = new Date(line[1]);
 				stamp1.setHours(stamp1.getHours(), stamp1.getMinutes(), 0, 0);
 				stamp2.setHours(stamp2.getHours(), stamp2.getMinutes(), 0, 0);
+				if (stamp1.getFullYear() == 2001){
+					stamp1.setFullYear(currentYear);
+				}
+				if (stamp2.getFullYear() == 2001){
+					stamp2.setFullYear(currentYear);
+				}
 				let minutes = 0;
 				while (stamp1.getTime() < stamp2.getTime()){
 					if (document.getElementById("weekend").checked == true && (stamp1.getDay() == 0 || stamp1.getDay() == 6)){
@@ -176,6 +183,12 @@
 				let stamp2 = new Date(line[1]);
 				stamp1.setHours(stamp1.getHours(), stamp1.getMinutes(), 0, 0);
 				stamp2.setHours(stamp2.getHours(), stamp2.getMinutes(), 0, 0);
+				if (stamp1.getFullYear() == 2001){
+					stamp1.setFullYear(currentYear);
+				}
+				if (stamp2.getFullYear() == 2001){
+					stamp2.setFullYear(currentYear);
+				}
 				let minutes = 0;
 				while (stamp1.getTime() < stamp2.getTime()){
 					if (document.getElementById("weekend").checked == true && (stamp1.getDay() == 0 || stamp1.getDay() == 6)){
@@ -212,6 +225,12 @@
 				let stamp2 = new Date(line[1]);
 				stamp1.setHours(stamp1.getHours(), stamp1.getMinutes(), 0, 0);
 				stamp2.setHours(stamp2.getHours(), stamp2.getMinutes(), 0, 0);
+				if (stamp1.getFullYear() == 2001){
+					stamp1.setFullYear(currentYear);
+				}
+				if (stamp2.getFullYear() == 2001){
+					stamp2.setFullYear(currentYear);
+				}
 				let minutes = 0;
 				while (stamp1.getTime() < stamp2.getTime()){
 					if (document.getElementById("weekend").checked == true && (stamp1.getDay() == 0 || stamp1.getDay() == 6)){
@@ -248,6 +267,12 @@
 				let stamp2 = new Date(line[1]);
 				stamp1.setHours(stamp1.getHours(), stamp1.getMinutes(), 0, 0);
 				stamp2.setHours(stamp2.getHours(), stamp2.getMinutes(), 0, 0);
+				if (stamp1.getFullYear() == 2001){
+					stamp1.setFullYear(currentYear);
+				}
+				if (stamp2.getFullYear() == 2001){
+					stamp2.setFullYear(currentYear);
+				}
 				let minutes = 0;
 				while (stamp1.getTime() < stamp2.getTime()){
 					if (document.getElementById("weekend").checked == true && (stamp1.getDay() == 0 || stamp1.getDay() == 6)){
@@ -284,6 +309,12 @@
 				let stamp2 = new Date(line[1]);
 				stamp1.setHours(stamp1.getHours(), stamp1.getMinutes(), 0, 0);
 				stamp2.setHours(stamp2.getHours(), stamp2.getMinutes(), 0, 0);
+				if (stamp1.getFullYear() == 2001){
+					stamp1.setFullYear(currentYear);
+				}
+				if (stamp2.getFullYear() == 2001){
+					stamp2.setFullYear(currentYear);
+				}
 				let minutes = 0;
 				while (stamp1.getTime() < stamp2.getTime()){
 					if (document.getElementById("weekend").checked == true && (stamp1.getDay() == 0 || stamp1.getDay() == 6)){

@@ -182,6 +182,10 @@
 			random_color = colors[Math.floor(Math.random() * colors.length)];
 		}
 		let assigned = new Date(document.getElementById("assigned").value);
+		if (assigned.getFullYear() == 2001){
+			const currentYear = new Date().getFullYear();
+			assigned.setFullYear(currentYear);
+		}
 		if(document.getElementById("department").value == "DMS"){
 			calculate(assigned, priorityHours, 8, 17);
 		}

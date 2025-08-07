@@ -146,3 +146,22 @@
 		}
 		document.getElementById("demo").innerHTML = "New SLA due date: " + result.toLocaleString();
 	}
+	
+		.scrollbox{
+		float: right;
+		whitespace: pre;
+		padding: 10px;
+		color: white;
+		background-color: green;
+		height: 100px;
+		width: 300px;
+		border: 2px solid black;
+		border-radius: 7px;
+		overflow: auto;		
+	}
+	
+	<div class="scrollbox">
+	Assumes current year if year is not specified.
+	
+	Press "enter" key anywhere on the screen to calculate SLA.
+	</div>

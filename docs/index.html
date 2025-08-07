@@ -100,7 +100,9 @@
 		text-decoration: none;
 		border-radius: 7px;
 		border: 2px solid black;
+		font-weight: bold;
 	}
+
 	</style>
   <meta charset="utf-8">
   
@@ -110,10 +112,10 @@
 </head>
 <body>
 	<h2>SLA CALCULATOR</h2>
-	<a id="bc" href="bc.html" target="_blank">—> Barrier Codes <—</a>
+	<a id="bc" href="bc.html" target="_blank">—> Return Trips/Barrier Codes <—</a>
 	<br>
 	<div class="column">
-		<label for="department">Site Type:</label> 
+		<label for="department">Site Type/Department:</label> 
 		<select id="department">
 			<option value="walmart">Walmart</option>
 			<option value="sams">Sam's Club</option>
@@ -155,10 +157,18 @@
 	<br>
 	<br>
 	<br>
-	<!-- <p id="quote" style="float:left;margin:100px;color:lightblue;">"They have a world to win."</p> -->
+	<br>
+	<br>
+	<br>
+	<br>
+
+	<!-- <p id="quote" style="float:right;margin:25px;margin-right:100px;color:lime;font-size:12px;">"They have a world to win."</p> -->
   <script>
+	//var tips = ["Selecting \"DMS\" **NO LONGER** automatically excludes weekends.","Calculator assumes current year if the year is not specified.", "Pressing the \"Enter\" key is the same as clicking the \"CALCULATE\" button.", "\"They have a world to win.\"", "MM/DD/YY HH:MM (no comma and no AM/PM) is a valid format."];
+	//random_tip = tips[Math.floor(Math.random() * tips.length)];
+	//document.getElementById("quote").innerHTML = random_tip;
 	n = new Date()
-	document.getElementById("assigned").value = n.toLocaleString();
+	document.getElementById("assigned").value = n.toLocaleString("en-US", {hour12: false, timeStyle: "short", dateStyle: "short"});
 	document.body.addEventListener("keyup", function(event) {
 		event.preventDefault();
 		if (event.keyCode === 13) {
@@ -229,7 +239,7 @@
 			result.setMinutes(result.getMinutes() + 1);
 			minutesAdded++;
 		}
-		document.getElementById("demo").innerHTML = "New SLA due date: " + result.toLocaleString();
+		document.getElementById("demo").innerHTML = "New SLA due date: " + result.toLocaleString("en-US", {hour12: false, timeStyle: "short", dateStyle: "short"});
 	}
 
   </script>

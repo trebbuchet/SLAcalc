@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<!--WRITTEN BY JOSEPH HURLEY-->
+
 <head>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Varela+Round">
 
@@ -117,11 +117,11 @@
 	<div class="column">
 		<label for="department">Site Type/Department:</label> 
 		<select id="department">
-			<option value="walmart">Walmart</option>
-			<option value="sams">Sam's Club</option>
+			<option value="wm">WM</option>
+			<option value="sc">SC</option>
 			<option value="DMS">DMS</option>
-			<option value="vision">Vision Center</option>
-			<option value="pharma">Pharmacy</option>
+			<option value="vc">VC</option>
+			<option value="rx">RX</option>
 		</select> 
 		<br>
 		<br>
@@ -149,8 +149,7 @@
 	</div>	
 	<br><br><br><br><br><br><br>
 	<div class="output">
-	<!-- <a href="https://www.iww.org/" target="_blank"><img src="invis.png" style="width:5px;height:5px;float:right;"></a> -->
-	<!-- <h3>OUTPUT</h3> -->
+
 	<p id="demo" style="color:white;"></p>
 	</div>
 	<br>
@@ -162,7 +161,6 @@
 	<br>
 	<br>
 
-	<!-- <p id="quote" style="float:right;margin:25px;margin-right:100px;color:lime;font-size:12px;">"They have a world to win."</p> -->
   <script>
 	//var tips = ["Selecting \"DMS\" **NO LONGER** automatically excludes weekends.","Calculator assumes current year if the year is not specified.", "Pressing the \"Enter\" key is the same as clicking the \"CALCULATE\" button.", "\"They have a world to win.\"", "MM/DD/YY HH:MM (no comma and no AM/PM) is a valid format."];
 	//random_tip = tips[Math.floor(Math.random() * tips.length)];
@@ -199,16 +197,16 @@
 		if(document.getElementById("department").value == "DMS"){
 			calculate(assigned, priorityHours, 8, 17);
 		}
-		if(document.getElementById("department").value == "walmart"){
+		if(document.getElementById("department").value == "wm"){
 			calculate(assigned, priorityHours, 6, 23);
 		}
-		if(document.getElementById("department").value == "sams"){
+		if(document.getElementById("department").value == "sc"){
 			calculate(assigned, priorityHours, 8, 20);
 		}
-		if(document.getElementById("department").value == "vision"){
+		if(document.getElementById("department").value == "vc"){
 			calculate(assigned, priorityHours, 10, 19);
 		}
-		if(document.getElementById("department").value == "pharma"){
+		if(document.getElementById("department").value == "rx"){
 			calculate(assigned, priorityHours, 9, 19);
 		}
 		

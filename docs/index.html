@@ -156,13 +156,17 @@
 	<br>
 	<br>
 	<br>
+	<div class="output">
+
+	<p id="quote" style="color:yellow;"></p>
+	</div>
 	<br>
 	<br>
 	<br>
 	<br>
 
   <script>
-	//var tips = ["Selecting \"DMS\" **NO LONGER** automatically excludes weekends.","Calculator assumes current year if the year is not specified.", "Pressing the \"Enter\" key is the same as clicking the \"CALCULATE\" button.", "\"They have a world to win.\"", "MM/DD/YY HH:MM (no comma and no AM/PM) is a valid format."];
+	//var tips = ["You are expendable and instantly disposable to Wachter.", "The working class and the employing class have nothing in common. There can be no peace so long as hunger and want are found among millions of the working people and the few, who make up the employing class, have all the good things of life.", "Multi-million dollar account, can't budget for labor costs and slow seasons. Embarrassing."];
 	//random_tip = tips[Math.floor(Math.random() * tips.length)];
 	//document.getElementById("quote").innerHTML = random_tip;
 	n = new Date()
@@ -181,7 +185,7 @@
 		return dateThing;
 	}
 	function input() {
-		var colors = ["yellow", "aquamarine", "orange", "white"];
+		var colors = ["aquamarine", "orange", "white"];
 		var random_color = colors[Math.floor(Math.random() * colors.length)]
 		var current_color = document.getElementById("demo").style.color;
 		let priorityHours = document.getElementById("priority").value;
@@ -216,7 +220,15 @@
 		let result = new Date(dtime.getTime());
 		const minutesToAdd = hours * 60;
 		let minutesAdded = 0;
-
+		
+		var tips = ["You are expendable and instantly disposable to Wachter.", "\"The working class and the employing class have nothing in common. There can be no peace so long as hunger and want are found among millions of the working people and the few, who make up the employing class, have all the good things of life.\"", "www.iww.org"];
+		var current_tip = document.getElementById("quote").innerHTML;
+		random_tip = tips[Math.floor(Math.random() * tips.length)];
+		while(random_tip == current_tip){
+			random_tip = tips[Math.floor(Math.random() * tips.length)];
+		}
+		document.getElementById("quote").innerHTML = random_tip;
+		
 
 		while (minutesAdded < minutesToAdd) {
 			if (document.getElementById("weekend").checked == true){
